@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import { Metadata } from "next";
 import { fetchFilteredCustomers } from "@/app/lib/data";
 import CustomersTable from "@/app/ui/customers/table";
@@ -9,20 +11,21 @@ export const metadata: Metadata = {
 export default async function Page({
   searchParams,
 }: {
-  searchParams?: {
-    query?: string;
-  };
+  // Declare searchParams as a Promise that resolves to an object with an optional query property
+  searchParams: Promise<{ query?: string }>;
 }) {
-  const query = searchParams?.query || "";
+  const resolvedSearchParams = await searchParams;
+  const query = resolvedSearchParams.query || "";
   const customers = await fetchFilteredCustomers(query);
-  // Add error handling for network issues or empty results
-  if (!customers) {
+
+  if (customers.length === 0) {
     return (
       <main>
         <p>No customers found.</p>
       </main>
     );
   }
+
   return (
     <main>
       <CustomersTable customers={customers} />

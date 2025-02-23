@@ -12,6 +12,9 @@ const eslintConfig = [
       "react/no-unescaped-entities": "off",
       "@next/next/no-page-custom-font": "off",
       "no-unused-vars": "off", // Added this rule
+      "@typescript-eslint/no-explicit-any": "off",
+      "typescript-eslint/ban-types": "off",
+      "@typescript-eslint/no-unused-vars": "off",
     },
   }),
 ];

@@ -13,9 +13,16 @@ export default async function Page({
     query?: string;
   };
 }) {
-  const query = searchParams?.query ? await searchParams.query : "";
+  const query = searchParams?.query || "";
   const customers = await fetchFilteredCustomers(query);
-//
+  // Add error handling for network issues or empty results
+  if (!customers) {
+    return (
+      <main>
+        <p>No customers found.</p>
+      </main>
+    );
+  }
   return (
     <main>
       <CustomersTable customers={customers} />
